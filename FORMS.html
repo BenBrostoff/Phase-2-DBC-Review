@@ -26,5 +26,21 @@
 
 <--Passing an Error Message -->
 
-<%= if @errors %>
+<div>
+  <form name="user" action="/user/signup" method="POST">
+    <input name="user[email]" type="text" placeholder="Enter Email">
+    <%= show_errors_for(:email) %>
+    <br>
+
+    <input name="user[username]" type="text" placeholder="Enter Username">
+    <%= show_errors_for(:username) %>
+    <br>
+
+    <input name="user[password]" type="password" placeholder="Enter Password">
+    <%= show_errors_for(:password) %>
+    <br>
+
+    <input type="submit" value="Add Account">
+  </form>
+</div>
 

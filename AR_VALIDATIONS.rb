@@ -27,7 +27,6 @@ end
 # Examples from Adrian's Project
 
 class User < ActiveRecord::Base
-  attr_reader :entered_password
   has_many :bets
   has_many :accepted_bets
   validates :username, uniqueness: true

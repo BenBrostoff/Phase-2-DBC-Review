@@ -3,8 +3,8 @@
 # Handler looks like this:
 
 get '/users/signup' do
-  @errors = session[:errors] #set equal to User.errors.messages (via AR)
-  session.delete[:errors]
+  @errors = session[:errors] #set equal to User.find(1).errors.messages (via AR)
+  session.delete[:errors] #clear sessions
   erb :signup
 end
 
