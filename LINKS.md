@@ -1,3 +1,8 @@
+#Practice Assessment on Socrates
+
+<a href="https://socrates.devbootcamp.com/challenges#phase-2-practice-assessment">Practice Assessment</a>
+<br>
+
 #Validations in Active Record
 #Indices (add_index) in Active Record
 <a href="https://github.com/woodchucks-2014/anagram-server-2-ludicrous-speed-challenge">Anagram Server</a>
@@ -16,10 +21,6 @@
 <br>
 <a href="https://github.com/woodchucks-2014/javascript-racer-1-front-end-challenge/tree/tanner">Tanner JS Racer OOP </a>
 
-#AJAX and JQuery
-
-
-
 #CSS
 
 Floats are useful in allowing for multiple column layouts.
@@ -27,6 +28,7 @@ However, creating separate divs is another method of achieving the same goal.
 
 #Helpful Group Projects
 
-<a href="">Casino Dogeale </a>
+<a href="https://github.com/RJNY/casino_dogeale">Casino Dogeale </a>
+Be wary of using this, because the group is known for being a bit sloppy.
 <br>
 <a href="https://github.com/kaiprt/DBCLightning">DBC Lightning</a>
