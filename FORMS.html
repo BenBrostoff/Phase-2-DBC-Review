@@ -1,0 +1,30 @@
+  <-- Editing a Form -->
+
+  <form action="/<%= @category.title %>/<%= @post.id %>" method ="post">
+    <input type="hidden" name="_method" value="put"> <--THIS LINE IS IMPORTANT -->
+    <input type="hidden" name="post[category_id]" value="<%= @category.id %>">
+    <input type="text" name="post[title]" value="<%= @post.title %>" placeholder="Title of your posting."><br><br>
+    <input type="text" name="post[email]" value="<%= @post.email %>" placeholder="Your email address."><br><br>
+    <input type="number" name="post[price]" value="<%= @post.price %>" placeholder="Price."><br><br>
+    <textarea name="post[body]" placeholder="Describe your product." cols="30" rows="5">
+      <%= @post.body %>
+    </textarea><br><br>
+    <input type="submit">
+  </form>
+
+</div>
+
+
+<-- Deleting a Form -->
+
+<-- Post and redirect is the best way to go here || use a hidden field-->
+
+ <form action="/<%= @category.title %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete Category">
+  </form>
+
+<--Passing an Error Message -->
+
+<%= if @errors %>
+
