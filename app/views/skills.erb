@@ -1,0 +1,13 @@
+<form action="/users/addskill/<%=current_user.id%>" method ="post">
+  <input type="text" name="skills[name]" placeholder="Objective C"><br><br>
+  <%= show_errors_for(:name) %>
+  <input type="text" name="skills[context]" placeholder="Advanced"><br><br>
+  <%= show_errors_for(:context) %>
+  <input type="submit">
+</form>
+
+<% if current_user.skills %>
+  <% current_user.skills.each do |skill| %>
+     <%= skill.name + "(" + skill.context + ")" %>
+  <% end %>
+<% end %>
