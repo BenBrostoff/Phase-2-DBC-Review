@@ -1,30 +1,8 @@
 // You need to set up all jQuery with document ready and remember to use
 // e.preventDefault()
 
-$(function (){
-  $('#viz_form').submit(function(e){
-    //this happens if form is submitted
-    //preent the default behavior of a form (it should do nothing in our case)
-    e.preventDefault();
-
-    //send an ajax request to our action
-    $.ajax({
-      url: "/follower_viz",
-      type: "POST", //this could also be get or whatever
-      //serialize the form and use it as data for our ajax request
-      data: $(this).serialize(),
-      //the type of data we are expecting back from server, could be json too
-      dataType: "html", // generally, we've been working with text
-      success: function(data) {
-        //if our ajax request is successful, replace the content of our viz div with the response data
-        console.log("SUCCESS"); //for debugging purposes
-        $('#viz').html(data);
-      }
-    });
-
-// From a recent exercise (via Ben and Greg)...
-
-// public/js/application.js looks like this
+// Form Example
+// Request:
 
 $(document).ready(function() {
   $(".grandma").hide();
@@ -46,10 +24,10 @@ $(document).ready(function() {
 });
 
 
-// Here's what the controller looks like:
+// Controller:
 
 post '/grandma' do
-  // the return of this controller (usually last line) is what is passed into 41
+  // the return of this controller (last line) is what is passed into 41
   @user_input = params[:user_input] // params[:user_input] derives from the data in 37
   if @user_input.length == 0
     "Don't waste my time - you looked like you were about to speak!"
@@ -63,6 +41,80 @@ post '/grandma' do
 end
 
 
+// JSON Example
+
+//Request
+$(document).ready(function(){
+
+ $('#get_color').on('click', function(e) {
+    e.preventDefault();
+    var ajaxRequest = $.ajax({
+      type: "POST",
+      url: "/color",
+      dataType: "json", // defining type
+    });
+    ajaxRequest.done(function(response) {
+      var rand = response.cell // getting cell attribute from JSON object
+      console.log("success");
+      $("li").eq(rand).css("background-color", response.color); // getting color attribute from JSON object
+    });
+    ajaxRequest.fail(function(response){
+      console.log("Fail");
+    });
+  });
+});
+
+//Controller
+
+post '/color' do
+  cell= rand(1..9)
+  color= "#" + "%06x" % (rand * 0xffffff)
+  {color: color, cell: cell}.to_json
+end
+
+// Partial / HTML Example
+// Request:
+
+$(document).ready(function() {
+  $('#loading').hide(); // GIF load bar
+
+  $('#twitter').submit(function(e){
+    $('#loading').show().html("<img src='ajaxloader.gif'>")
+    e.preventDefault();
+    var handle = $('#twitter').serialize(); // read input name
+    var ajaxRequest = $.ajax({
+      url: '/find_user',
+      type: "POST",
+      data: handle // passed into 106 and 109 on controller
+    });
+
+    ajaxRequest.done(function(response) {
+      console.log(response);
+      $('#loading').hide();
+      $('.tweets').html("");
+      $('.tweets').append(response); // append HTML grabbed from controller
+    });
+
+    ajaxRequest.fail(function(response) {
+      console.log('FAILED');
+    });
+  });
+});
+
+// Controller:
+post '/find_user' do
+  @user = TwitterUser.find_by_username(params[:username])
+  @checker = @user.stale?
+  if @user == nil
+    @user = TwitterUser.create(username: params[:username])
+    @test = "I CREATED A NEW USER"
+    @user.fetch_tweets!
+  end
+  @average_time = @user.average_tweet_difference
+  @user.refresh_tweets(@average_time)
+  @tweets = @user.tweets.limit(10)
+  erb :tweets_page //HTML passed into line 91 and used on line 95
+end
 
 
 
