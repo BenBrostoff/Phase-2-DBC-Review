@@ -80,8 +80,7 @@ puts "*************************"
 # patriots.players << vinateiri
 brady.captaincies << [patriots, broncos]
 
-p patriots.captain #mankins, slater
-
+p patriots.captain
 
 
 
