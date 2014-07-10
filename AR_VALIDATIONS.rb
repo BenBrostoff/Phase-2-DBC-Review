@@ -5,6 +5,12 @@
 class Student < ActiveRecord::Base
   has_many :lectures, foreign_key: :student_id
   has_many :teachers, through: :lectures
+
+  validates_length_of :password, minimum: 7 #minimum password length
+  validates_format_of :password, :with => /[a-zA-Z][a-zA-Z][a-zA-Z][0-9][0-9][0-9]/ 
+  #three letters and three numbers
+
+
   validates :age, numericality: {greater_than: 5}
   validates :email, uniqueness: true
   validates :email, format: {with: /[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,}/}
